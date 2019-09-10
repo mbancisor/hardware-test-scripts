@@ -6,7 +6,7 @@ import som_functions
 
 class TestADRV9009ZU11EG(unittest.TestCase):
 
-    measurements = 10
+    measurements = 100
     buf_len = 2 ** 14
     uri1 = "ip:192.168.1.60"
     uri2 = "ip:192.168.1.61"

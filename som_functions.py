@@ -227,36 +227,47 @@ def run_hardware_tests(TRXLO,sync,runs,buf_len, uri1,uri2):
     phase_error1 = np.array([])
     phase_error2 = np.array([])
     phase_error12 = np.array([])
-
-    i = 0
-    while rxadc1.reg_read(0x80000068) == 0:
-        rxadc1.reg_write(0x80000044, 0x8)
-        if (i == 50):
-            print("no HDL 1 sync")
-            break
-        i += 1
-    print("HDL 1 sync reg", rxadc1.reg_read(0x80000068))
-    print("tried ",i)
-
-    i = 0
-    while rxadc2.reg_read(0x80000068) == 0:
-        rxadc2.reg_write(0x80000044, 0x8)
-        if (i == 50):
-            print("no HDL 2 sync")
-            break
-        i += 1
-    print("HDL 2 sync reg", rxadc2.reg_read(0x80000068))
-    print("tried ",i)
-
-
+    #raw_input("asd")
+    # k = 0
+    # while rxadc1.reg_read(0x80000068) == 0:
+    #     rxadc1.reg_write(0x80000044, 0x8)
+    #     if (k == 50):
+    #         print("no HDL 1 sync")
+    #         break
+    #     k += 1
+    # k = 0
+    # while rxadc2.reg_read(0x80000068) == 0:
+    #     rxadc2.reg_write(0x80000044, 0x8)
+    #     if (k == 50):
+    #         print("no HDL 2 sync")
+    #         break
+    #     k += 1
 
     for i in range(runs):
 
+      k = 0
+      while rxadc1.reg_read(0x80000068) == 0:
+        rxadc1.reg_write(0x80000044, 0x8)
+        if (k == 50):
+          print("no HDL 1 sync")
+          break
+        k += 1
 
+      k = 0
+      while rxadc2.reg_read(0x80000068) == 0:
+        rxadc2.reg_write(0x80000044, 0x8)
+        if (k == 50):
+          print("no HDL 2 sync")
+          break
+        k += 1
+
+      hmc7044_1_ext.attrs["sysref_request"].value = str(1)
       rxbuf1.refill()
       rxbuf2.refill()
 
-      hmc7044_1_ext.attrs["sysref_request"].value = str(1)
+      #raw_input("asd")
+
+      #hmc7044_1_ext.attrs["sysref_request"].value = str(1)
 
       data1 = rxbuf1.read()
       data2 = rxbuf2.read()
